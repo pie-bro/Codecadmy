@@ -107,3 +107,55 @@ WHERE year >= 1990
 AND year <= 1999;
 
 
+Question
+Is there a limit to the number of columns a table can have?
+Answer
+Yes, there is a limit to the number of columns a table can have.
+In SQLite in particular, the upper bound for this number of columns is stored in a parameter called SQLITE_MAX_COLUMN, and by default, it is set to 2000 columns.
+This value can be changed during compile time and can be set up to a maximum value of 32767. However, realistically, your tables will probably never need these many columns, but, it is available as an option if ever needed.
+
+
+Question
+In the context of this exercise 2, are 0 and "" empty values?
+Answer
+No, although logically, we may think that 0 represents some empty number or count, or that "" represents an empty text, which is not wrong, this does not mean they are empty values. In SQL tables, they are still considered to be values.
+Instead, empty values in SQL would be represented with NULL, which means the absence of any value.
+
+
+Question
+In the context of this lesson 1, are identifiers, like the id column, always numerical values?
+Answer
+No, identifiers of a table do not always have to be numerical values. It is most common to use numerical values because the values are easy to keep track of, and for each new row, we simply increment the number by 1, but it is not absolutely necessary.
+Instead of numerical values, you can use non-numerical values, such as text values or even dates, as long as they are unique for each row. You can even use multiple columns, in combination, to determine an identifier for each row.
+For an example of a non-numerical identifier, consider a table of employees, with a column for emails, which can be used as the id column because each employee has a unique email. Another example is a table of transactions, where dates are specified to milliseconds that they were applied. Transactions cannot happen at the same time, so these dates might be used as the identifier.
+
+
+Question
+In the context of this code challenge 4, do we have to select the column which we are ordering by in a SQL statement?
+Answer
+No, you do not have to select the column, or columns, that you are applying the ORDER BY clause on. For example, if you were applying the clause like so,
+ORDER BY column_1
+you do not have to select column_1 in your statement.
+Most of the time, for the sake of clarity of how the data is being ordered, it might make sense to include that column in your SELECT statement, but it is not absolutely necessary. The following would be valid,
+SELECT column_1, column_2
+FROM table
+ORDER BY column_3;
+
+
+Question
+In the context of this code challenge 1, can we match for a specific casing of text?
+Answer
+Yes, this is possible.
+By default, text matching using LIKE is case-insensitive, however we can utilize a special type of statement in SQLite, known as a PRAGMA statement. PRAGMA statements are a specific type of statement in SQLite, and can be used to modify certain behaviors of the available functionality.
+The following is an example of how it can be applied.
+/* Run this statement to allow case-sensitive
+matching on the LIKE operator */
+PRAGMA case_sensitive_like = true;
+/* This statement will now only match text that 
+contains the exact casing of "Code" */
+SELECT *
+FROM table
+WHERE column LIKE '%Code%';
+
+
+
