@@ -1,3 +1,29 @@
+SQL lets us use column reference(s) in our GROUP BY that will make our lives easier.
+
+1 is the first column selected
+2 is the second column selected
+3 is the third column selected
+and so on.
+
+The DELETE FROM statement deletes one or more rows from a table. 
+
+SQL is case-insensitive for text values.
+
+LIKE is not case sensitive. ‘Batman’ and ‘Man of Steel’ will both appear in the result of the query 'man' above.
+
+COUNT() is used to take a name of a column, and counts the number of ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)non-empty![#1589F0](https://placehold.it/15/1589F0/000000?text=+) values in that column.
+
+The BETWEEN operator is used in a WHERE clause to filter the result set within a certain range. It accepts two values that are either numbers, text or dates.
+When the values are text, BETWEEN filters the result set for within the alphabetical range.
+In this statement, BETWEEN filters the result set to only include movies with names that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.
+SELECT *
+FROM movies
+WHERE name BETWEEN 'A' AND 'J';
+However, if a movie has a name of simply ‘J’, it would actually match. This is because BETWEEN goes up to the second value — up to ‘J’. So the movie named ‘J’ would be included in the result set but not ‘Jaws’.
+
+The WHERE clause filters rows, whereas the HAVING clause filter groups.
+
+
 Question
 In the context of this exercise 52, can we add a column at a specific position to a table?
 Answer
@@ -16,9 +42,6 @@ Although similar in the sense that both statements will modify a table, these st
 The ALTER statement is used to modify ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)columns![#1589F0](https://placehold.it/15/1589F0/000000?text=+). With ALTER, you can add columns, remove them, or even modify them.
 The UPDATE statement is used to modify ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)rows![#1589F0](https://placehold.it/15/1589F0/000000?text=+). However, UPDATE can only update a row, and cannot remove or add rows.
 
-
-The DELETE FROM statement deletes one or more rows from a table. 
-SQL is case-insensitive for text values.
 
 Question
 Can we alias multiple columns in a single query?
@@ -48,9 +71,6 @@ FROM books
 WHERE title LIKE '% 100\%';
 
 
-LIKE is not case sensitive. ‘Batman’ and ‘Man of Steel’ will both appear in the result of the query 'man' above.
-
-
 Question
 When storing missing data, should I store them as NULL?
 Answer
@@ -61,15 +81,6 @@ WHERE address IS NULL
 it would not give us the rows with missing address values. We would have to check using
 WHERE address = ''
 With a table containing many different data types, it may be helpful and more convenient to store any missing values in general as just NULL so that we can utilize the IS NULL and IS NOT NULL operators.
-
-
-The BETWEEN operator is used in a WHERE clause to filter the result set within a certain range. It accepts two values that are either numbers, text or dates.
-When the values are text, BETWEEN filters the result set for within the alphabetical range.
-In this statement, BETWEEN filters the result set to only include movies with names that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.
-SELECT *
-FROM movies
-WHERE name BETWEEN 'A' AND 'J';
-However, if a movie has a name of simply ‘J’, it would actually match. This is because BETWEEN goes up to the second value — up to ‘J’. So the movie named ‘J’ would be included in the result set but not ‘Jaws’.
 
 
 Question
@@ -157,5 +168,52 @@ SELECT *
 FROM table
 WHERE column LIKE '%Code%';
 
+
+Question
+When using the SQL COUNT() function for a column, does it include duplicate values?
+Answer
+Yes, when using the COUNT() function on a column in SQL, it will include duplicate values by default. It essentially counts all rows for which there is a value in the column.
+If you wanted to count only the unique values in a column, then you can utilize the DISTINCT clause within the COUNT() function.
+Example
+/* This will return 22, the number of distinct category values. */
+SELECT COUNT(DISTINCT category)
+FROM fake_apps;
+
+
+Question
+If multiple rows have the minimum or maximum value, which one is returned when using MAX/MIN?
+Answer
+Typically, when you have more than one row that contains the minimum or maximum value in a column, the topmost row containing that value will be returned in the result.
+For example, if the table contained multiple rows with the minimum price of 0.0, then the result of a query with MIN(price) will choose the topmost row from the table that had this price value.
+
+
+Question
+What’s the difference between COUNT(1), COUNT(*), and COUNT(column_name)?
+Answer
+It’s important to note that depending on the ‘flavor’ of SQL you are using (MySQL, SQLite, SQL Server, etc.), there may be very slight differences in performance between COUNT(1) and COUNT(*), but generally speaking COUNT(1) and COUNT(*) will both return the number of rows that match the condition specified in your query.
+As for COUNT(column_name), this statement will return the number of rows that have a non-null value for the specified column.
+Let’s say we have the following table called people:
+When we run either of these queries:
+SELECT COUNT(1) FROM people;
+SELECT COUNT(*) FROM people;
+we’re going to get a result of 3 because there are three rows in the table. But If we run this query:
+SELECT COUNT(favorite_color) FROM people;
+we will get a result of 2 because the third row contains a value of NULL for favorite_color, therefore that row does not get counted.
+
+
+Question
+What do the numbers refer to in a statement like ‘GROUP BY 1’ or ‘ORDER BY 2’?
+Answer
+When you see numbers after a GROUP BY or ORDER BY statement, they are referring to the columns that were selected in the query. These are called column reference numbers. The 1 signifies the first column selected, the 2 signifies the second column selected, and so on. Here’s an example:
+SELECT alpha, bravo, charlie FROM table GROUP BY 1 ORDER BY 2;
+In this query, 1 is referring to alpha and 2 is referring to bravo.
+The main reason we use column reference numbers is because sometimes it can be a pain to type out a really long or complex column name. As you can imagine, it’s a whole lot easier typing a number than something like customer_order_number.
+
+
+Question
+With SQL functions like ROUND, if a parameter is optional, should you still provide a value for it?
+Answer
+Before I can give an answer to this question, it’s important to note that the documentation for functions like ROUND can slightly differ depending on the flavor of SQL you are using. In the SQLite documentation 39, we can see that the second parameter for the ROUND function is optional, whereas the SQL Server documentation 38 shows that same parameter as required. Always make sure you’re checking the proper documentation!
+As for the original question, it’s really up to you as the programmer to decide, you just have to be consistent with your decision. If you provide a value for an optional parameter, you should be doing that everywhere else in your code. The only real benefit to including a default value for an optional parameter is that it’s more explicitly clear as to what’s going on. Imagine someone reading your code who isn’t all that familiar with SQL, they might be able to get a better idea of what’s going on if you do provide values for the optional parameters.
 
 
