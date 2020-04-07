@@ -23,6 +23,16 @@ However, if a movie has a name of simply ‘J’, it would actually match. This 
 
 The WHERE clause filters rows, whereas the HAVING clause filter groups.
 
+SQL has strict rules for appending data:(UNION)
+Tables must have the same number of columns.
+The columns must have the same data types in the same order as the first table.
+
+Difference between UNION and UNION ALL
+Whether include duplicate rows.
+
+The WITH statement allows us to perform a separate query (such as aggregating customer’s subscriptions)
+
+
 
 Question
 In the context of this exercise 52, can we add a column at a specific position to a table?
@@ -215,5 +225,37 @@ With SQL functions like ROUND, if a parameter is optional, should you still prov
 Answer
 Before I can give an answer to this question, it’s important to note that the documentation for functions like ROUND can slightly differ depending on the flavor of SQL you are using. In the SQLite documentation 39, we can see that the second parameter for the ROUND function is optional, whereas the SQL Server documentation 38 shows that same parameter as required. Always make sure you’re checking the proper documentation!
 As for the original question, it’s really up to you as the programmer to decide, you just have to be consistent with your decision. If you provide a value for an optional parameter, you should be doing that everywhere else in your code. The only real benefit to including a default value for an optional parameter is that it’s more explicitly clear as to what’s going on. Imagine someone reading your code who isn’t all that familiar with SQL, they might be able to get a better idea of what’s going on if you do provide values for the optional parameters.
+
+
+Question
+Is it possible for a table to have more than one unique identifier column, like an id column?
+Answer
+Yes, it is possible for a table to have more than one column which can uniquely identify a row of data. A column that can uniquely identify a record of data is known as a "Candidate Key". Tables can have multiple "Candidate Key"s, each of which could potentially be the "Primary Key", but there must only be one "Primary Key" per table. Usually, the column chosen as the "Primary Key" follows the naming convention like customer_id or product_id.
+For example, say that we had a table of employee records, with the columns employee_id and phone_number. Every employee has a unique employee_id value, and a unique phone_number value. Both of these columns can be unique identifiers for a row, so they are "Candidate keys", but the "Primary Key" would most likely be set to employee_id.
+
+
+Question
+What happens if the tables we perform the UNION operator on have duplicate rows?
+Answer
+When you combine tables with UNION, duplicate rows will be excluded.
+To explain why this is the case, recall a Venn Diagram, which shows the relations between sets. If we perform UNION on two sets of data (tables), say A and B, then the data returned in the result will essentially be
+A + B - (A intersect B)
+In the first part,
+A + B
+will add together all the rows of both tables, including duplicates.
+The second part,
+- (A intersect B)
+will remove every duplicate, which is where A and B intersected.
+If, however, you wanted to include duplicates, certain versions of SQL provides the UNION ALL operator.
+
+
+Question
+Can we use WITH for more than one nested query in SQL?
+Answer
+Yes, you can use WITH for more than one nested query. You can do so by listing each query using commas after the WITH.
+For example,
+WITH
+query1 AS (SELECT column1 FROM table1 WHERE condition1),
+query2 AS (SELECT column2 FROM table2 WHERE condition2)
 
 
