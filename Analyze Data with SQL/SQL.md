@@ -259,3 +259,24 @@ query1 AS (SELECT column1 FROM table1 WHERE condition1),
 query2 AS (SELECT column2 FROM table2 WHERE condition2)
 
 
+When dividing, we need to be sure to multiply by 1.0 to cast the result as a float:
+SELECT 1.0 * 
+(
+  SELECT COUNT(*)
+  FROM subscriptions
+  WHERE subscription_start < '2016-12-01'
+  AND (
+    subscription_end
+    BETWEEN '2016-12-01'
+    AND '2016-12-31'
+  )
+) / (
+  SELECT COUNT(*) 
+  FROM subscriptions 
+  WHERE subscription_start < '2016-12-01'
+  AND (
+    (subscription_end >= '2016-12-01')
+    OR (subscription_end IS NULL)
+  )
+) 
+AS result;
