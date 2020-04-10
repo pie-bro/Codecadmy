@@ -32,6 +32,46 @@ Whether include duplicate rows.
 
 The WITH statement allows us to perform a separate query (such as aggregating customer’s subscriptions)
 
+Subqueries are used to complete an SQL transformation by nesting one query within another query.
+A non-correlated subquery is a subquery that can be run independently of the outer query and can be used to complete a multi-step transformation.
+A correlated subquery is a subquery that cannot be run independently of the outer query. The order of operations in a correlated subquery is as follows:
+1. A row is processed in the outer query.
+2. Then, for that particular row in the outer query, the subquery is executed.
+
+INTERSECT is used to combine two SELECT statements, but returns rows only from the first SELECT statement that are identical to a row in the second SELECT statement. 
+This means that it returns only common rows returned by the two SELECT statements.
+It's the same like show distinct column by inner join.
+
+EXCEPT is constructed in the same way, but returns distinct rows from the first SELECT statement that aren’t output by the second SELECT statement.
+
+Aggregate functions compute a single result from a set of multiple input values. You can think of aggregate data as data collected from multiple rows at a time. In this lesson, we’ll continue learning about aggregate functions by focusing on conditionals, sums, and combining aggregate functions.
+
+Conditional Aggregates are aggregate functions that compute a result set based on a given set of conditions.
+
+Date Functions:
+
+DATETIME; Returns the date and time of the column specified. This can be modified to return only the date or only the time.
+DATETIME(time1, +X hours, Y minutes, Z days): Increments the specificed column by a given number of hours, minutes, or days.
+Numeric Functions:
+
+(number1 + number2);: Returns the sum of two numbers, or other mathematical operations, accordingly.
+CAST(number1 AS REAL) / number2;: Returns the result as a real number by casting one of numeric inputs as a real number
+ROUND(number, precision);: Returns the numeric value rounded off to the next value specified.
+String Functions:
+
+'string1' || ' ' || 'string2';: Concatenates string1 and string 2, with a space between.
+REPLACE(string,from_string,to_string): Returns the string with all occurrences of the string from_string replaced by the string to_string.
+
+
+--When the columns to join have the same name in both tables you can use using instead of on. 
+--Our use of the using keyword is in this case equivalent to this clause:
+
+from daily_revenue
+  join daily_players using (dt);
+  
+ from daily_revenue
+  join daily_players on
+    daily_revenue.dt = daily_players.dt;
 
 
 Question
