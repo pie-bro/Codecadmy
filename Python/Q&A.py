@@ -8,6 +8,7 @@ Lines
 """
 How can I use quotes inside of a string? - FAQ / Python FAQ - Codecademy Forums
 https://discuss.codecademy.com/t/how-can-i-use-quotes-inside-of-a-string/448684
+If a multi-line string isn’t assigned a variable or used in an expression it is treated as a comment.
 """
 
 """
