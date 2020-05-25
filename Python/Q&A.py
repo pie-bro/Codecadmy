@@ -117,6 +117,7 @@ return current_year - birth_year
 
 Question
 In Python, if there is a return statement within a function, does the return always have to be the last line of code in the function?
+
 Answer
 That does not always have to be the case, but usually, a return statement is the last line of code in a function since it should be run
 last.
@@ -156,6 +157,101 @@ sayHi("Anne")
 # The value of the variable defined outside was unchanged.
 # This will print out “Josh”.
 print(name)
+
+
+Question
+What is the difference between = and == in Python? Is there any relation?
+
+Answer
+In Python, the operators = and == serve very different purposes, and don’t have much relation at all other than similar syntax.
+The = operator is used for assignment, such as when assigning a value to a variable.
+The == operator is the relational operator for checking equality of two values. 
+If the values are the same, it will return True, and will return False otherwise.
+Example
+# Assignment
+number = 3
+# Comparison
+number == 30 # False
+
+
+Q
+If we use print instead of return why does the word none comes in the console?
+
+A
+So return and then “Strng” will never print.The returned value can be assigned to a variable for future use, passed directly as 
+an argument to another function (in the example above, the print() function), or used as one value within an expression. 
+If the calling expression does nothing with the return value, it will be lost.
+
+
+Question
+In Python, is there a limit to the number of elif statements that are allowed?
+
+Answer
+No, there is no strict limit to how many elif statements you can include after an if statement. You can add as many as you need into the program, 
+not taking into account memory or other possible limitations like hardware.
+The only strict limit is that there can only be one if and one else per if/elif/else statement block, but there is no limit on the number of elif.
+
+
+Question
+In Python, am I able to check for multiple error types with one try and except statement?
+
+Answer
+Yes, it is possible to check multiple error types with a single try and except statement.
+For the except, we can include multiple error types listed within a tuple. It will check if any of the listed errors are encountered.
+You can also do a general except without a specified error type, but that is not recommended as it will catch any errors, including 
+ones we don’t want to check.
+Example
+# Multiple error types listed.
+try:
+  line of code
+except(TypeError, NameError, ...):
+  ...  
+# Not recommended
+try:
+  line of code
+except:
+  ...
+
+
+If there is a sequence separated by commas standing alone, it is a tuple.
+If surrounded by parentheses, still a tuple.
+If surrounded by brackets, it a list.
+If surrounded by “curly braces”, it is a set.
+
+
+Question
+Do the lists passed to the zip() function have to be the same length?
+
+Answer
+The zip() function will only iterate over the smallest list passed. If given lists of different lengths, 
+the resulting combination will only be as long as the smallest list passed. In the following code example, 
+list_two contains more elements than list_one so the resulting merged list will only be as long as list_one.
+list_one = ['Joe', 'Mark', 'Jane']
+list_two = [ 100, 34, 87, 23, 65 ]
+merged = zip(list_one, list_two)
+print(list(merged))
+# [('Joe', 100), ('Mark', 34), ('Jane', 87)]
+It is possible to use the cycle() function from itertools to repeat values from the shorter list. 
+This will allow zip() to iterate over all the elements from the longer list. 
+In this example, cycle() is used to repeat values from list_one and the resulting merged list will now contain all values from list_two.
+
+from itertools import cycle
+list_one = ['Joe', 'Mark', 'Jane']
+list_two = [ 100, 34, 87, 23, 65 ]
+merged2 = zip(cycle(list_one), list_two)
+print(list(merged2))
+#[('Joe', 100), ('Mark', 34), ('Jane', 87), ('Joe', 23), ('Mark', 65)]
+
+
+myList = ['a', 'b', 'c']
+myTuple = ('a', 'b', 'c')
+we have a list (myList) and a tuple (myTuple), a tuple is very similar to a list, except tuples are immutable.
+
+
+
+
+
+
 
 
 
