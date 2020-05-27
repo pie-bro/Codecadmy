@@ -248,14 +248,57 @@ myTuple = ('a', 'b', 'c')
 we have a list (myList) and a tuple (myTuple), a tuple is very similar to a list, except tuples are immutable.
 
 
+Question
+How does the behavior of the continue statement differ from the break statement?
+
+Answer
+The continue statement interrupts the execution of a loop and causes the loop to start the next iteration. 
+Any code following the continue is not executed but the loop will continue on starting with the next iteration. 
+The break statement will terminate the execution of the loop. No further code in the loop will execute and the program will 
+resume execution at the next statement following the end of the loop.
+In the following code example, if the counter is an even number, a continue statement is used to skip printing the number 
+and continue to the next number. An if statement checks if counter has reached 19 and then uses a break to stop the execution 
+of the loop. This code will print the odd numbers from 1 through 17.
+
+counter = 0
+while counter < 100:
+    counter += 1
+    
+    # If number is even - skip to next
+    if counter % 2 == 0:
+        continue
+
+    if counter == 19:
+        break
+        
+    print(counter)
 
 
+Question
+When using a list comprehension with an if, is it possible to have an else clause?
+
+Answer
+Yes, an else clause can be used with an if in a list comprehension. The following code example shows the use of an else in a simple list comprehension. 
+The if/else is placed in front of the for component of the list comprehension.
+divbythree = [  "Yes" if number % 3 == 0 else "No" for number in range(1,20)]
+print(divbythree)
+
+How does indexing a string work? or What does `word[0]` in the example mean? - FAQ / Python FAQ - Codecademy Forums
+https://discuss.codecademy.com/t/how-does-indexing-a-string-work-or-what-does-word-0-in-the-example-mean/457119
+
+Can you break down the uses of the temporary variable `word` in the example? - FAQ / Python FAQ - Codecademy Forums
+https://discuss.codecademy.com/t/can-you-break-down-the-uses-of-the-temporary-variable-word-in-the-example/457123
 
 
+Question
+In this exercise 14, the variable from the list comprehension is used to calculate a value. Is it possible to call a function using the variable?
 
-
-
-
+Answer
+Yes, the variable in the for of a list comprehension can be used as a parameter to a function. 
+In this example, the variable number is passed to randint() to calculate a random number between number and 2 * number for the list produced by the comprehension.
+from random import randint
+random_numbers = [ randint(number, 2 * number) for number in range(10)]
+print(random_numbers)
 
 
 
