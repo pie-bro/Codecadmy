@@ -301,6 +301,150 @@ random_numbers = [ randint(number, 2 * number) for number in range(10)]
 print(random_numbers)
 
 
+Question
+When should I create a Pandas dataframe using a dictionary or a list?
+
+Answer
+You can create Pandas dataframes using either a dictionary or a list of lists, 
+but depending on several factors, using one can be preferred over the other.
+
+Using dictionaries can be much faster, since you can just include the column names as the keys, 
+and include the values of the column as a list for the keys. However, a disadvantage of using a dictionary is that the columns 
+will not preserve the order that you entered them, and will default to alphabetical ordering instead. This is important to 
+keep in mind especially if the column order is important.
+
+Using a list of lists allows you to enter each row of data one at a time as a separate list, but it may take longer than 
+using a dictionary, since column names must be added as a separate list after the rows are added. However, a list of lists 
+allows you to order the column names specifically, which can be very important.
+
+
+Question
+In a CSV file, does spacing matter, such as before or after commas?
+
+Answer
+Yes, in most cases for CSV files, Pandas will separate the data by the commas, and will keep any spaces that were included before or 
+after a comma.
+Because of this, it is important that when creating a CSV file, each value should only be separated by a comma without any unwanted 
+whitespace before or after the commas, since they will not be removed automatically.
+Example CSV row
+name, date, location
+For the above example, when reading the data from this CSV, it will include the leading spaces for ’ date’ and ’ location’.
+
+
+Question
+In Pandas, what happens if there are empty or missing values in a CSV file and we try to read it?
+
+Answer
+If the CSV file contains missing values, then when we read the file, it will populate the missing cells with NaN. 
+NaN is short of “Not a Number”, and used to signify missing values.
+If needed, we can replace these NaN values with an actual value, like 0 or an empty string '', using the fillna() method. 
+Or, we can drop any rows that contain an empty value, using dropna().
+For example, if we had a CSV file containing the following:
+name,flavor,topping
+,chocolate,chocolate shavings
+Birthday Cake,,gold sprinkles
+The second row is missing a value in the first column, and the third row is missing a value in the second column.
+When we read this file using Pandas read_csv, it will load it like so, filling in the missing values with NaN.
+name             flavor        topping
+NaN              chocolate     chocolate shavings
+Birthday Cake    NaN           gold sprinkles
+
+
+Question
+How is a Pandas series different from a dataframe?
+
+Answer
+In Pandas a series is a one-dimensional object that contains any type of data, similar in ways to a Numpy array.
+Series objects have a single axis label, like a column title, which is the index of the series. 
+A series is essentially a single column.
+# Creating a series
+clinic_east = pd.Series([100, 51, 81, 80, 51, 112])
+A dataframe is a two-dimensional object that can hold multiple columns of different types of data. 
+They are similar to a table in SQL.
+A single column of a dataframe is a series, and a dataframe is a container of two or more series objects.
+When we select a single row of a dataframe, the result is a Series (just like when we select a single column).
+
+# Creating a DataFrame
+df = pd.DataFrame ([
+  ['January', 100, 100],
+  ['February', 51, 45],
+  ['March', 81, 96]],
+  columns=["month", "clinic_east", "clinic_north"]
+)
+When we select a single column from a dataframe, the result is called a Series.
+df = pd.DataFrame([
+  ['January', 100, 100, 23, 100],
+  ['February', 51, 45, 145, 45],
+  ['March', 81, 96, 65, 96],
+  ['April', 80, 80, 54, 180],
+  ['May', 51, 54, 54, 154],
+  ['June', 112, 109, 79, 129]],
+  columns=['month', 'clinic_east',
+           'clinic_north', 'clinic_south',
+           'clinic_west']
+)
+clinic_north = df.clinic_north
+print(type(clinic_north))
+#<class 'pandas.core.series.Series'>
+print(type(df))
+#<class 'pandas.core.frame.DataFrame'>
+
+
+Question
+Can we select columns of a Pandas dataframe in any order?
+
+Answer
+You certainly can! When selecting multiple columns from a DataFrame, you can order the columns however you would like them to appear. 
+This is particularly useful because if we wanted to see the data in a certain way different from the original column order, we can reorder them in the output however we need.
+Example
+df = pd.DataFrame([
+  ['Doe', 'Jane'],
+  ['Law', 'Bob']],
+  columns = ['last_name', 'first_name'])
+# We can select the first_name column first, 
+# then the last_name.
+full_names = df[['first_name', 'last_name']]
+
+
+Question
+When using iloc to select ranges of Pandas dataframe rows, can we skip rows? For instance, can we choose to select every second or third row only?
+
+Answer
+You can! Selecting multiple rows using .iloc is very similar to list slicing in Python. There are a few ways to select rows using iloc.
+To select just a single row, we pass in a single value, the index. For example with Python lists,
+numbers[0] # First element of numbers list
+And with Dataframes, we would do something similar,
+orders.iloc[0].
+Selecting a range of elements of a list and a range of rows in Pandas is also very similar.
+# Python list
+numbers[3:7]
+# Pandas
+orders.iloc[3:7]
+To skip a certain number of indexes per index, we can include a third, step, value.
+# This selects values at indexes 0, 3, 6, 9.
+# Python list
+numbers[0:10:3]
+# This selects rows at indexes 0, 3, 6, 9
+# Pandas
+orders.iloc[0:10:3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
