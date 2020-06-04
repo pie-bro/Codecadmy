@@ -428,7 +428,8 @@ numbers[0:10:3]
 # Pandas
 orders.iloc[0:10:3]
 
-
+Lambda Functions in Python | Codecademy
+https://www.codecademy.com/paths/data-science/tracks/advanced-python/modules/ida-2-5-lambda-functions/lessons/lambda/exercises/intro-to-lambda
 
 
 
