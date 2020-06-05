@@ -432,6 +432,173 @@ Lambda Functions in Python | Codecademy
 https://www.codecademy.com/paths/data-science/tracks/advanced-python/modules/ida-2-5-lambda-functions/lessons/lambda/exercises/intro-to-lambda
 
 
+Question
+Can we add a new column at a specific position in a Pandas dataframe?
+
+Answer
+Yes, you can add a new column in a specified position into a dataframe, by specifying an index and using the insert() function. 
+By default, adding a column will always add it as the last column of a dataframe.
+
+Say for example, we had a dataframe with five columns. If we wanted to insert a new column at the third position (index 2), 
+we could do so like this:
+
+# Third position would be at index 2, because of zero-indexing.
+df.insert(2, 'new-col', data)
+This will insert the column at index 2, and fill it with the data provided by data. When inserting, the columns from index 2 onward 
+will effectively be shifted over to the right by 1 index each. The column that was previously at index 2 would now be at index 3 and 
+so on for the following columns.
+
+
+Question
+When we store values such as True or False into a dataframe, are they stored as strings?
+
+Answer
+No, although the values may seem to be string types when printing out a dataframe, the values of True and False are stored as the 
+bool type.
+
+To see the data types that each column of your dataframe stores, you can utilize the .info() method, as covered in the previous 
+lesson on Pandas.
+
+One thing to keep in mind is that when inspecting the column data types using .info(), you will see types such as float64, bool, 
+as well as object. The object data type means that the column can store any Python object. Columns that store more than one type of 
+value, say a column that contains numbers and strings, will have a dtype of object.
+
+
+Question
+Can we utilize the apply() method in Pandas to update a dataframe in-place?
+
+Answer
+No, unlike other methods that update the dataframe for which you can specify in-place, such as
+
+df.drop(['A'], inplace=True)
+df.rename({'B' : 'C'}, inplace=True)
+
+using the apply() method does not have the parameter for inplace.
+
+As a result, whenever you use apply() on a dataframe, if you wish to update the dataframe, then you must reassign it, for example:
+
+df = df.apply(my_lambda)
+
+
+Question
+In the context of this exercise 12, how might the example lambda functions be rewritten using the regular form, utilizing def?
+
+Answer
+Lambda functions can usually always be written in the normal Python function structure. This post will try to rewrite the example 
+lambda functions in the normal Python function structure, which utilizes def and consists of multiple lines, as opposed to lambda 
+functions which are always a single line.
+For the first lambda function
+mylambda = lambda x: (x * 2) + 3
+Rewriting this using the def structure could be as follows:
+def my_function(x):
+  return (x * 2) + 3
+For the second example lambda function
+stringlambda = lambda x: x.lower()
+We can rewrite this like:
+def string_function(x):
+  return x.lower()
+If we generalize how this is done, basically, the parameters of the function are the parameters that follow right after the keyword lambda and before the colon :. For example, for this lambda, the parameters are x and y
+sumlambda = lambda x, y: x + y
+The returned value of the function is just what follows the colon :,
+x + y.
+Written using the normal structure, this would be
+def sum_function(x, y):
+  return x + y
+
+
+Question
+In the context of this exercise 13, the example lambda functions, which use an if/else statement, were written using a backslash (\). Do we always need to include backslashes when writing lambda functions using if/else?
+
+Answer
+No, you do not always need to include backslashes \ when you write lambda functions with if/else statements.
+In Python, the backslash character \, also called the “line continuation character”, is used to join two lines of code. 
+When you have a backslash at the end of a code line, Python will continue reading the next line of code as though the lines are part of a single line of code.
+We use backslashes for the main purpose of making the code easier to read, by decreasing the length of the code lines. 
+In particular, lambda functions can become quite long and hard to read because they are a single line, which is why we usually apply backslashes to divide them into multiple lines.
+
+Example
+# A statement as a single line
+print 1 + 3
+
+# The same statement split into multiple lines
+print \
+1 + \
+3
+One important thing to keep in mind is that there cannot be any characters or spaces after a backslash. A backslash must be the very last character of a code line. Otherwise, an error will be thrown.
+
+
+
+Question
+In the context of this exercise 8, how does the lambda function in the example work?
+
+Answer
+In this exercise, the lambda function given in the example was
+lambda x: x.split('@')[-1]
+A quick explanation of what this lambda function will do is, it will take in a string input value, which will be an Email address 
+like "john.smith@gmail.com", and return the Email provider, "gmail.com".
+To better understand how it accomplishes this, let’s work through each part:
+First, it will use .split() to “split” the inputted string on the delimiter '@'. In Python, this will return a new list with 
+the string split into substrings separated on any "@" which were in the string. So, given
+x = "john.smith@gmail.com"
+
+x.split('@')
+returns the list
+['john.smith', 'gmail.com']
+
+Finally, the function will access the last element of this list, using index -1. If you recall, we can use negative index values to select elements from the last position, where -1 selects the last element, -2 selects the second to last, and so on.
+
+# x = "john.smith@gmail.com"
+
+x.split('@')[-1]
+# = ['john.smith', 'gmail.com'][-1]
+# = 'gmail.com'
+
+If we use apply without specifying a single column and add the argument axis=1, the input to our lambda function will be an entire row, 
+not a column. To access particular values of the row, we use the syntax row.column_name or row[‘column_name’].
+
+
+Question
+In the context of this exercise 23, in Pandas, when do we apply lambda functions to rows as opposed to columns of a dataframe?
+
+Answer
+Generally, we apply a lambda to rows, as opposed to columns, when we want to perform functionality that needs to access more than one 
+column at a time.
+Take for instance, the example function from the exercise:
+lambda row: row['Price'] * 1.075 if row['Is taxed?'] == 'Yes' else row['Price']
+As we can see, this lambda function is accessing multiple columns of the dataframe: Price and Is taxed?. Because it is accessing 
+multiple columns, it would need to be able to access the entire row, instead of just a single column.
+On the other hand, when applying a lambda function to a single column, the lambda will only apply to that column’s values. For example, 
+from the previous exercise example:
+df['Email Provider'] = df.Email.apply(lambda x: x.split('@')[-1] )
+will apply the lambda function only on the values of the column df.Email, and not to any other columns.
+
+Using rename with only the columns keyword will create a new DataFrame, leaving your original DataFrame unchanged. That’s why we also 
+passed in the keyword argument inplace=True. Using inplace=True lets us edit the original DataFrame.
+
+
+Question
+In the lesson 14, we learned how to add columns to a dataframe, but what if wanted to remove them?
+
+Answer
+In addition to being able to add columns, we have the ability to remove columns of a dataframe in Pandas.
+
+There are a few ways you can go about removing columns from a dataframe:
+
+Creating a new dataframe, and including just the columns you want to keep from the original dataframe. For example, if we only wanted to include these columns from a dataframe, it effectively “removes” all the other columns not included:
+new_df = df[['col1', 'col4']]
+
+You can utilize the built-in drop() method, to delete a specific column. In order to drop a column, we must specify axis=1. We can do so as follows:
+df.drop('col3', axis=1, inplace=True)
+
+To drop multiple columns at once, we can enter in multiple column names as a list using drop(), like so:
+df.drop(['col3', 'col5'], axis=1, inplace=True)
+
+
+
+
+
+
+
 
 
 
