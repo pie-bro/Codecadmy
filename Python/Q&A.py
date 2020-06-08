@@ -594,7 +594,10 @@ To drop multiple columns at once, we can enter in multiple column names as a lis
 df.drop(['col3', 'col5'], axis=1, inplace=True)
 
 
-
+As we saw in the previous exercise, the groupby function creates a new Series, not a DataFrame. For our ShoeFly.com example, 
+the indices of the Series were different values of shoe_type, and the name property was price.
+Usually, we’d prefer that those indices were actually a column. In order to get that, we can use reset_index(). This will transform 
+our Series into a DataFrame and move the indices into their own column.
 
 
 
