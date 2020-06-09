@@ -600,12 +600,159 @@ Usually, we’d prefer that those indices were actually a column. In order to ge
 our Series into a DataFrame and move the indices into their own column.
 
 
+Question
+In the context of this exercise 4, can we merge on more than one specific column?
+
+Answer
+Yes, you can perform a merge on one column, or on multiple specified columns, by passing in a list of the column names for each dataframe.
+
+When listing multiple column names, it will only return rows for which all the column values match. Furthermore, the number of columns listed must match, and the order they are listed will matter.
+
+Example
+# This will match the values for 
+# column "a" with "c" 
+# and column "b" with "d".
+
+pd.merge(
+  df1,
+  df2,
+  left_on=["a", "b"],
+  right_on=["c", "d"]
+)
+
+
+Using plt.subplot(), the first parameter represents the number of rows of subplots, the second represents the number of columns, 
+and the third representing the index of the subplot.
+This diagram has 2 rows, and the second one has 2 columns. We will be selecting the box with index 4, since the first three were 
+taken up by our previous graphs.
 
 
 
+Question
+In the context of this exercise 5 in Matplotlib, how can rows in a plot have different numbers of columns?
+
+Answer
+In order to understand how rows of a plot can have different numbers of columns, we first need to understand how the subplot essentially works.
+
+When you apply subplot, you are not actually setting permanent dimensions for the layout of the plot grid.
+
+Instead, think of it as though each time you use subplot, with some specified values, you are just creating a “virtual” or temporary grid layout placed on top of the entire plot area. After we place the subplot based on the layout of this grid, it is removed until we create a new subplot, with a new temporary grid.
+
+For example, if we create a subplot as follows
+ax1 = plt.subplot(2, 2, 1)
+this will create a temporary 2x2 grid, and place the subplot at index 1 based on this 2x2 grid, which is the upper left.
+
+And, if we wanted to add another subplot, say at the bottom right, we would do
+ax2 = plt.subplot(2, 2, 4)
+which again creates a temporary 2x2 grid, and places the subplot at index 4, which is the lower right area.
+
+A way to visualize this would be
+
+# [temp ] is used to signify temporary empty subplots
+# when the virtual grid is applied.
+
+# Adding ax1
+[ ax1 ] [temp ]
+[temp ] [temp ]
+
+# Result plot
+[ ax1 ]
+
+
+# Adding ax2
+[temp ] [temp ]
+[temp ] [ ax2 ]
+
+# Result plot
+[ ax1 ] 
+        [ ax2 ]
+What essentially happens when we create a subplot is as follows:
+
+It creates a temporary “virtual” grid on top of the entire plot area.
+
+It places the subplot within the layout of that temporary grid at the specified index, based on that grid.
+
+After the subplot is placed, that virtual or temporary grid disappears, and we have the subplots on the plot area, as we intended.
+
+When we add another subplot, this process repeats.
 
 
 
+Question
+On a bar chart, what happens to the x-tick labels if the text becomes long?
+
+Answer
+When x-tick label strings become too long, you will not get any error messages. However, the label text will start to overlap with 
+the other label text, which can make them hard to read.
+
+To prevent the issue of labels overlapping, you might utilize the rotation parameter, which will rotate the text for each label. 
+By rotating the text, the text is no longer stuck stretching out horizontally but will stretch out on an angle, which will prevent overlap with the other labels.
+
+Another way to prevent the issue of overlap is by avoiding it entirely. This can be done by choosing label text lengths that are 
+not too long. You might do this by abbreviating terms.
+
+Having label text that is easy to read is important so that other people will also be able to read and understand the information 
+displayed on your graphs.
+
+
+
+Question
+In the context of this exercise 6, how does this list comprehension in the example work?
+
+[t*element + w*n for element in range(d)]
+
+Answer
+The list comprehension provided in the example code returns a list of x values for the bar locations in the graph.
+
+There are 4 variables which will let us do this:
+n determines which dataset it is currently for.
+t determines the total number of datasets to graph side by side.
+d tells us how many bars there are per dataset.
+w tells us the width of each individual bar.
+
+If we take the provided values for the first dataset China Data, we get
+[2*element + 0.8*1 for element in range(7)]
+
+This essentially means, for each element in range(7), construct a list where each element is
+2*element + 0.8
+
+This would give us this list of values,
+[0.8, 2.8, 4.8, 6.8, 8.8, 10.8, 12.8]
+
+If we change n to 2 for the second dataset US Data, it gives us the list
+[1.6, 3.6, 5.6, 7.6, 9.6, 11.6, 13.6]
+
+These x values will position each pair of bars for each set of data next to each other in a clear way.
+
+
+
+Question
+In the context of this exercise 2, when do we use each type of graph shown?
+
+Answer
+Depending on what you are trying to convey visually with data, certain graphs can be better suited for the task. The following are 
+brief summaries of each graph and when you might apply them.
+
+A bar chart with error has the qualities of a bar chart, which lets us see categorical data. The heights of each bar can represent 
+the average of values in the category, and with the addition of error bars, we can see the range of all values from smallest to largest represented by the bottom and top lines of the error bar. You might use this to display the average grade of students categorized by college major.
+
+A line chart with error has the qualities of a line chart, which lets us display values for a sequence of data points, connected 
+with straight lines. The added shaded error lets us see a lower and upper bound that the values can fall between, similar to the bar 
+chart with error. You might use this to show stock prices over time.
+
+Histograms let us see frequencies of variables that fall within intervals, which we refer to as “bins”. The one displayed in this 
+exercise is a specific type called a normalized histogram, such that the total area of all the rectangles in the histogram sum to 1. 
+You might use histograms to show how many people there are within different age ranges in years, like 10-20, 20-30, and so on.
+
+A pie chart lets us see how values contribute to a whole, like slices of a pie. Each wedge size is proportional to the fraction of 
+each value of the total value. You might use a pie chart when showing the percentages of students in different college majors.
+
+Side by side charts are bar charts where different sets of data are shown next to each other. This is useful to directly visualize 
+and compare multiple sets of data with each other. You might use this to compare the average grades of students based on college major 
+from different colleges.
+
+Last, but not least, stacked bars allow us to see how individual values contribute toward a total value, similar to pie charts, but 
+displayed as a vertical column and without the restriction of a set size, as you can keep adding to the bar’s total height. You might use stacked bars when showing the hours spent studying for different classes per day. The total height of each column would be total hours spent studying that day.
 
 
 
