@@ -756,11 +756,38 @@ displayed as a vertical column and without the restriction of a set size, as you
 
 
 
+Question
+In the context of this exercise 69, what do the horizontal and vertical axes represent in a KDE plot?
+
+Answer
+For this lesson, the KDE plots we work will be using univariate data. So, only one of the axes will represent actual values in the data.
+
+The horizontal or x-axis of a KDE plot is the range of values in the data set. This is similar to the x axis for histograms.
+
+The vertical or y-axis of a KDE plot represents the Kernel Density Estimate of the Probability Density Function of a random variable, 
+which is interpreted as a probability differential. The probability of a value being between the points x1 and x2 is the total shaded 
+area of the curve under the two points.
 
 
 
+Question
+In the context of this exercise 31, how do we read a violin plot to determine its distribution type?
 
+Answer
+When reading a violin plot, the distributions are essentially just rotated vertically rather than horizontally, and then mirrored on 
+the left and right sides.
 
+To read the distributions from a violin plot, we just need to reverse these steps. We can rotate the plots so that the values are on 
+the x axis, and in increasing order from left to right. Then, you can ignore the mirrored side below the x axis, and read the 
+distribution shape as you normally would, for the top half.
+
+Keeping this in mind, we can determine the shapes of the example violin plots in the exercise:
+
+Dataset 1 (Blue) is unimodal and has most of its data on the right, so it must be skewed left.
+
+Dataset 2 (Green) is unimodal and seems to be symmetric and normal.
+
+Dataset 3 (Red) appears to be bimodal.
 
 
 
