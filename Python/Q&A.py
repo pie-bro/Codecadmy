@@ -790,8 +790,164 @@ Dataset 2 (Green) is unimodal and seems to be symmetric and normal.
 Dataset 3 (Red) appears to be bimodal.
 
 
+Question
+What are some differences between an array and a list?
+
+Answer
+In Python, an array, or NumPy Array, and list share many similarities, but they also have some important differences on how they can be used.
+
+Both arrays and lists can hold multiple items of any type. You can also access individual items by indexes.
+
+One important, and probably the main difference, between them is that you can perform operations on an array, like addition, multiplication, and subtraction, like you would a vector in mathematics.
+
+This means that if you have an array of numbers, you can add a single number to every value in the array with one operation. With a list, operations cannot be applied on every single element like for an array, and might even cause errors.
+
+Arrays also provide several other useful functionality, which you will learn throughout this lesson.
+
+Example
+test = np.array([1, 2, 3, 4, 5])
+test += 10
+
+# The array is now [11, 12, 13, 14, 15]
 
 
+Question
+Can we perform operations between 1-D and 2-D NumPy Arrays?
+
+Answer
+Yes, when performing an operation between a 1-D and a 2-D NumPy Array, it will essentially perform the operation on the 1-D array with each row of the 2-D Array individually.
+
+As a result, it is only possible if the number of elements for every row in both Arrays match.
+
+For example, these two arrays have 2 elements in each row, so you can perform an operation on them.
+
+# When we perform an operation on these arrays, 
+# it is essentially running the operation 
+# on each row of the 2-D list with the 1-D list.
+arr1 = np.array([[1, 1], [2, 2], [3, 3]])
+arr2 = np.array([10, 10])
+
+arr1 * arr2
+# The result of running the above is
+# [[10 10]
+#  [20 20]
+#  [30 30]]
+
+
+Question
+When selecting elements from a 1-D NumPy Array, is there a way to skip elements?
+
+Answer
+Yes, actually, selecting elements from a 1-D Array is similar to list or string slicing.
+
+Just like when slicing a list or string, we can include a third value, which is the step value, or the number of indexes to increment for each item in the new list or substring.
+
+Code
+# By default, step is 1, and selects each item 
+# in the range of indexes.
+test = np.array([92, 94, 88, 91, 87])
+
+print test[0:5] 
+# [92, 94, 88, 91 87]
+
+# With a step of 2, it will skip every other element.
+print test[0:5:2] 
+# [92, 88, 87]
+
+
+Question
+Without initially knowing the dimensions of a 2-D Array, how could we get the last element?
+
+Answer
+Assuming that the 2-D Array has the same number of elements for each row, such that it is an Array of size M x N, we could do this using the len() function. The len() function works the same way for arrays as it does for lists in Python.
+
+First, we can get the last row index like so.
+len(array) - 1
+
+And since each row has the same number of elements, we can get the index of the final column like so.
+len(array[0]) - 1
+
+Putting this together, selecting the last, or bottom-right most, element is done with
+array[len(array) - 1, len(array[0]) - 1]
+
+
+Question
+In the context of this exercise 14, what is an axis in Numpy?
+
+Answer
+An axis is similar to a dimension. For a 2-dimensional array, there are 2 axes: vertical and horizontal.
+
+When applying certain Numpy functions like np.mean(), we can specify what axis we want to calculate the values across.
+
+For axis=0, this means that we apply a function along each “column”, or all values that occur vertically.
+
+For axis=1, this means that we apply a function along each “row”, or all values horizontally.
+
+Example
+# Given the following 2-dimensional array
+values = np.array([
+[10, 20, 30, 40],
+[50, 60, 70, 80],
+])
+
+# Axis=0
+# along each "column"
+print np.mean(values, axis=0) 
+# [30, 40, 50, 60]
+
+# Axis=1
+# along each "row"
+print np.mean(values, axis=1)
+# [25, 65]
+
+
+Question
+In the context of this exercise 6, what happens to the dataset when the standard deviation is small or large?
+
+Answer
+When the standard deviation is small, the values will be less spread out and be closer to the mean. This will cause the overall shape of this dataset to appear less chaotic 
+and more leveled.
+
+When the standard deviation is large, the values will be more spread out from the mean. The shape of the dataset will appear to be more uneven and chaotic as the standard 
+deviation increases.
+
+
+Question
+In the context of this exercise 6, are standard deviations relative to the data they are from?
+
+Answer
+Yes, this is because a standard deviation depends on the dataset values.
+
+If you have a set of large numbers and a set of small number, both with a similar distribution shape, the standard deviation of the larger numbered dataset is most likely 
+going to have a larger standard deviation because the values themselves are larger.
+
+In this exercise, our data for pumpkin is roughly 10 times larger than the values in acorn_squash, with the values somewhat similarly spread out. As a result, the standard 
+deviation will most likely be bigger for the larger numbered dataset.
+
+If you wanted to make the comparison somewhat closer, you might consider normalizing or scaling the datasets to be around the same scale when comparing the standard 
+deviations.
+
+
+Question
+What are some important differences between standard deviation and interquartile range?
+
+Answer
+Standard Deviation
+The standard deviation takes into account all the values of a dataset, including any outliers. It is dependent on the mean, because the value is used to tell how much the 
+data deviates from the mean of a dataset.
+
+The standard deviation is also important when we need to utilize the variance of a dataset, which is necessary to do things like linear regression or other analysis of data.
+
+Because the standard deviation is affected by skewed data, it can be more reliable when the data is normalized and not skewed.
+
+Interquartile Range
+The Interquartile Range tells us how spread the data is. The larger this value is, the more spread out the data is, and conversely, the smaller the value, the less spread 
+the data is.
+
+Unlike the standard deviation, however, it does not take into account all the values in the dataset, but mainly their positions when the data is ordered. It is not affected 
+as much by outliers or data that is skewed or not normalized.
+
+Ultimately, using both when analyzing data can sometimes be better than only using one value, and we can obtain more insight by observing both.
 
 
 """
