@@ -949,6 +949,60 @@ as much by outliers or data that is skewed or not normalized.
 
 Ultimately, using both when analyzing data can sometimes be better than only using one value, and we can obtain more insight by observing both.
 
+Question
+In the context of this exercise 10, how does np.mean() give us the probability?
+
+Answer
+The np.mean() function is generally used to get the average of all values in a dataset. We can apply this function with a logical statement to get the percent of values that satisfy the logical statement.
+
+In the exercise example, we have np.mean(a==4). First, this will evaluate the conditional, a==4, which will return a list of True and False values. Then it will run np.mean() on that list of True and False values. When running np.mean() on a list of True and False values, True = 1, False = 0 during the calculation.
+
+Because True values count as 1, this is like counting how many elements satisfy the logical statement, and the calculation is essentially:
+
+(Number elements satisfying condition) / (Number total elements)
+
+Example
+# a = [4, 3, 1, ..., 4]
+np.mean(a==4)
+=
+np.mean([True, False, False, ..., True])
+
+# In Numpy functions, 
+# True  counts as 1
+# False counts as 0
+
+# This is then equivalent to calculating
+np.mean([1, 0, 0, ..., 1])
+
+# Example:
+# There are 10000 total elements
+# 5000 elements equal to 4
+np.mean(a==4)
+= 
+5000 / 10000 = 0.5 or 50% probability 
+
+
+
+Question
+What are some important differences between a Normal and Binomial Distribution?
+
+Answer
+Normal Distribution
+Normal distributions are more common in statistics than binomial distributions most of the time. These distributions are always symmetric and unimodal by definition.
+
+Normal distributions can be described by their mean and standard deviation. The mean determines where the center of the distribution is located. The standard deviation determines the shape of the distribution. A larger standard deviation means a wider and flatter shape, while a smaller standard deviation means a skinnier shape.
+
+Furthermore, unlike binomial distributions, a normal distribution is based on the values of a dataset.
+
+An example of a normal distribution is for the heights of people in a country.
+
+Binomial Distribution
+These distributions tell us the probability for a specific number of “successes” to happen, given a probability of success and number of trials.
+
+Unlike normal distributions, binomial distributions tell us the results of only two possible outcomes: success or failure.
+
+An example of this is flipping a coin, which can only result in heads or tails.
+
 
 """
 
