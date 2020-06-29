@@ -268,3 +268,260 @@ In Pandas the .merge() function uses an inner merge by default. An inner merge c
 A Venn diagram of the intersection of two sets. The RED area is the intersection. This is what we get from an INNER MERGE.
 
 
+
+Indexing NumPy elements using conditionals
+NumPy elements can be indexed using conditionals. The syntax to filter an array using a conditional is array_name[conditional].
+
+The returned array will contain only the elements for which the conditional evaluates to True.
+
+numbers = np.array([-5, 4, 0, 2, 3])
+positives = numbers[numbers > 0]
+print(positives)
+# array([4, 2, 3])
+
+
+
+NumPy element-wise logical operations
+NumPy Arrays support element-wise logical operations, returning new Arrays populated with False or True based on their evaluation.
+
+numbers = np.array([-5, 4, 0, 2, 3])
+is_positive = numbers > 0
+print(is_positive)
+# array([False, True, False, True, True], dtype=bool)
+
+
+Creating NumPy Arrays from files
+NumPy Arrays can be created from data in CSV files or other delimited text by using the np.genfromtxt() method.
+
+The named parameter delimiter is used to determine the delimiting character between values.
+
+imported_csv = np.genfromtxt("filename.txt", delimiter=",")
+
+
+NumPy Arrays
+NumPy (short for “Numerical Python”) is a Python module used for numerical computing, creating arrays and matrices, and performing very fast operations on those data structures. The core of NumPy is a multidimensional Array object.
+
+The NumPy .array() method is used to create new NumPy Arrays.
+
+# Import the NumPy module, aliased as 'np'
+import numpy as np
+
+# NumPy Arrays can be created with a list
+my_array = np.array([1, 2, 3, 4])
+
+
+Accessing NumPy Array elements by index
+Individual NumPy Array elements can be accessed by index, using syntax identical to Python lists: array[index] for a single element, or array[start:end] for a slice, where start and end are the starting and ending indexes for the slice.
+
+Nested Arrays or elements can be accessed by adding additional comma-separated parameters.
+
+matrix = np.array([[1, 2, 3], 
+[4, 5, 6], 
+[7, 8, 9]])
+
+print(matrix[0, 0]) 
+# 1
+
+print(matrix[1,:])
+# array([4, 5, 6])
+
+
+NumPy element-wise arithmetic operations
+NumPy Arrays support element-wise operations, meaning that arithmetic operations on arrays are applied to each value in the array.
+
+Multiple arrays can also be used in arithmetic operations, provided that they have the same lengths.
+
+odds = np.array([1, 3, 5, 7, 9])
+evens = odds + 1
+print(evens)
+# array([2, 4, 6, 8, 10])
+
+array1 = np.array([1, 2, 3])
+array2 = np.array([4, 3, 2])
+new_array = array1 + array2
+print(new_array)
+# array([5, 5, 5])
+
+
+NumPy’s Mean and Axis
+In a two-dimensional array, you may want the mean of just the rows or just the columns. In Python, the NumPy .mean() function can be used to find these values. To find the average of all rows, set the axis parameter to 1. To find the average of all columns, set the axis parameter to 0.
+
+We will use the following 2-dimensional array for this example:
+
+```
+py
+ring_toss = np.array([[1, 0, 0], 
+                          [0, 0, 1], 
+                          [1, 0, 1]])
+```
+
+The code below will calculate the average of each row.
+
+```py
+np.mean(ring_toss, axis=1)
+# Output: array([ 0.33333333,  0.33333333,  0.66666667])
+```
+
+
+
+Conditions in Numpy.mean()
+In Python, the function numpy.mean() can be used to calculate the percent of array elements that satisfies a certain condition.
+
+import numpy as np
+a = np.array([1,2,3,4])
+np.mean(a)
+# Output = 2.5
+
+np.mean(a>2)
+# The array now becomes array([False, False, True, True])
+# True = 1.0,False = 0.0
+# Output = 0.5
+# 50% of array elements are greater than 2
+
+
+NumPy Percentile Function
+In Python, the NumPy .percentile function accepts a NumPy array and percentile value between 0 and 100. The function returns the value of the array element at the percentile specified.
+
+d = np.array([1, 2, 3, 4, 4, 4, 6, 6, 7,  8, 8])
+np.percentile(d, 40)
+# Output: 4.00
+
+
+
+NumPy’s Percentile and Quartiles
+In Python, the NumPy .percentile() function can calculate the first, second and third quartiles of an array. These three quartiles are simply the values at the 25th, 50th, and 75th percentiles, so those numbers would be the parameters, just as with any other percentile.
+
+d = [1, 2, 3, 4, 4, 4, 6, 6, 7, 8, 8]
+np.percentile(d, 25)
+# Output: 3.5
+np.percentile(d, 75)
+#Output: 6.5
+
+
+NumPy’s Sort Function
+In Python, the NumPy .sort() function takes a NumPy array and returns a different NumPy array, this one containing the same numbers in ascending order.
+
+heights = np.array([49.7, 46.9, 62, 47.2, 47, 48.3, 48.7])
+np.sort(heights)
+# Output: array([ 46.9,  47. ,  47.2,  48.3,  48.7,  49.7,  62])
+
+
+Definition of Percentile
+In statistics, a data set’s Nth percentile is the cutoff point demarcating the lower N% of samples.
+
+
+Datasets and their Histograms
+When datasets are plotted as histograms, the way the data is distributed determines the distribution type of the data.
+
+The number of peaks in the histogram determines the modality of the dataset. It can be unimodal (one peak), bimodal (two peaks), multimodal (more than two peaks) or uniform (no peaks).
+
+Unimodal datasets can also be symmetric, skew-left or skew-right depending on where the peak is relative to the rest of the data.
+
+Normal Distribution using Python Numpy module
+Normal distribution in NumPy can be created using the below method.
+
+np.random.normal(loc, scale, size)
+
+Where loc is the mean for the normal distribution, scale is the standard deviation of the distribution, and size is the number of observations the distribution will have.
+
+import numpy as np
+mu = 0 #mean
+sigma = 0.1 #standard deviation
+np.random.normal(mu, sigma, 1000)
+
+
+Standard deviation
+The standard deviation of a normal distribution determines how spread out the data is from the mean.
+
+68% of samples will fall between +/- 1 standard deviation of the mean.
+
+95% of samples will fall between +/- 2 standard deviations of the mean.
+
+99.7% of samples will fall between +/- 3 standard deviations of the mean.
+
+Histogram Visualization
+A histogram is a plot that visualizes the distribution of samples in a dataset. Histogram shows the frequency on the vertical axis and the horizontal axis is another dimension. Usually horizontal axis has bins, where every bin has a minimum and maximum value. Each bin also has a frequency between x and infinite.
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10,10))
+plt.hist(x_axis,bins=10,color='blue')
+plt.xlabel('Age bins')
+plt.ylabel('Frequency')
+plt.title('Age Distribution')
+plt.show()
+
+
+haracter Sets in Regular Expressions
+Regular expression character sets denoted by a pair of brackets [] will match any of the characters included within the brackets. For example, the regular expression con[sc]en[sc]us will match any of the spellings consensus, concensus, consencus, and concencus.
+
+Optional Quantifiers in Regular Expressions
+In Regular expressions, optional quantifiers are denoted by a question mark ?. It indicates that a character can appear either 0 or 1 time. For example, the regular expression humou?r will match the text humour as well as the text humor.
+
+Literals in Regular Expressions
+In Regular expression, the literals are the simplest characters that will match the exact text of the literals. For example, the regex monkey will completely match the text monkey but will also match monkey in text The monkeys like to eat bananas.
+
+Fixed Quantifiers in Regular Expressions
+In Regular expressions, fixed quantifiers are denoted by curly braces {}. It contains either the exact quantity or the quantity range of characters to be matched. For example, the regular expression roa{3}r will match the text roaaar, while the regular expression roa{3,6}r will match roaaar, roaaaar, roaaaaar, or roaaaaaar.
+
+Alternation in Regular Expressions
+Alternation indicated by the pipe symbol |, allows for the matching of either of two subexpressions. For example, the regex baboons|gorillas will match the text baboons as well as the text gorillas.
+
+Anchors in Regular Expressions
+Anchors (hat ^ and dollar sign $) are used in regular expressions to match text at the start and end of a string, respectively. For example, the regex ^Monkeys: my mortal enemy$ will completely match the text Monkeys: my mortal enemy but not match Spider Monkeys: my mortal enemy or Monkeys: my mortal enemy in the wild. The ^ ensures that the matched text begins with Monkeys, and the $ ensures the matched text ends with enemy.
+
+Regular Expressions
+Regular expressions are sequence of characters defining a pattern of text that needs to be found. They can be used for parsing the text files for specific pattern, verifying test results, and finding keywords in emails or webpages.
+
+Wildcards in Regular expressions
+In Regular expression, wildcards are denoted with the period . and it can match any single character (letter, number, symbol or whitespace) in a piece of text. For example, the regular expression ......... will match the text orangutan, marsupial, or any other 9-character text.
+
+Regular Expression Ranges
+Regular expression ranges are used to specify a range of characters that can be matched. Common regular expression ranges include: [A-Z]. : match any uppercase letter [a-z]. : match any lowercase letter [0-9]. : match any digit [A-Za-z] : match any uppercase or lowercase letter.
+
+Shorthand Character Classes in Regular Expressions
+Shorthand character classes simplify writing regular expressions. For example, \w represents the regex range [A-Za-z0-9_], \d represents [0-9], \W represents [^A-Za-z0-9_] matching any character not included by \w, \D represents [^0-9] matching any character not included by \d.
+
+Kleene Star & Kleene Plus in Regular Expressions
+In Regular expressions, the Kleene star(*) indicates that the preceding character can occur 0 or more times. For example, meo*w will match mew, meow, meooow, and meoooooooooooow. The Kleene plus(+) indicates that the preceding character can occur 1 or more times. For example, meo+w will match meow, meooow, and meoooooooooooow, but not match mew.
+
+Grouping in Regular Expressions
+In Regular expressions, grouping is accomplished by open ( and close parenthesis ). Thus the regular expression I love (baboons|gorillas) will match the text I love baboons as well as I love gorillas, as the grouping limits the reach of the | to the text within the parentheses.
+
+
+Hypothesis Test Errors
+Type I errors, also known as false positives, is the error of rejecting a null hypothesis when it is actually true. This can be viewed as a miss being registered as a hit. The acceptable rate of this type of error is called significance level and is usually set to be 0.05 (5%) or 0.01 (1%).
+
+Type II errors, also known as false negatives, is the error of not rejecting a null hypothesis when the alternative hypothesis is the true. This can be viewed as a hit being registered as a miss.
+
+Depending on the purpose of testing, testers decide which type of error to be concerned. But, usually type I error is more important than type II.
+
+Sample Vs. Population Mean
+In statistics, we often use the mean of a sample to estimate or infer the mean of the broader population from which the sample was taken. In other words, the sample mean is an estimation of the population mean.
+
+Central Limit Theorem
+The central limit theorem states that as samples of larger size are collected from a population, the distribution of sample means approaches a normal distribution with the same mean as the population. No matter the distribution of the population (uniform, binomial, etc), the sampling distribution of the mean will approximate a normal distribution and its mean is the same as the population mean.
+
+The central limit theorem allows us to perform tests, make inferences, and solve problems using the normal distribution, even when the population is not normally distributed.
+
+Hypothesis Test P-value
+Statistical hypothesis tests return a p-value, which indicates the probability that the null hypothesis of a test is true. If the p-value is less than or equal to the significance level, then the null hypothesis is rejected in favor of the alternative hypothesis. And, if the p-value is greater than the significance level, then the null hypothesis is not rejected.
+
+Univariate T-test
+A univariate T-test (or 1 Sample T-test) is a type of hypothesis test that compares a sample mean to a hypothetical population mean and determines the probability that the sample came from a distribution with the desired mean.
+
+This can be performed in Python using the ttest_1samp() function of the SciPy library. The code block shows how to call ttest_1samp(). It requires two inputs, a sample distribution of values and an expected mean and returns two outputs, the t-statistic and the p-value.
+
+from scipy.stats import ttest_1samp
+
+t_stat, p_val = ttest_1samp(example_distribution, expected_mean)
+
+
+Tukey’s Range Hypothesis Tests
+A Tukey’s Range hypothesis test can be used to check if the relationship between two datasets is statistically significant.
+
+The Tukey’s Range test can be performed in Python using the StatsModels library function pairwise_tukeyhsd(). The example code block shows how to call pairwise_tukeyhsd(). It accepts a list of data, a list of labels, and the desired significance level.
+
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+tukey_results = pairwise_tukeyhsd(data, labels, alpha=significance_level)
