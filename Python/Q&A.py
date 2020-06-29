@@ -1019,7 +1019,9 @@ The Kleene plus, denoted by the plus +, matches the preceding character 1 or mor
 The anchor symbols hat ^ and dollar sign $ are used to match text at the start and end of a string, respectively
 
 
-
+Convergence
+How do we know when we should stop changing the parameters m and b? How will we know when our program has learned enough?
+To answer this, we have to define convergence. Convergence is when the loss stops changing (or changes very slowly) when parameters are changed.
 
 """
 
