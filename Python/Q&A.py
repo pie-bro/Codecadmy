@@ -1023,5 +1023,37 @@ Convergence
 How do we know when we should stop changing the parameters m and b? How will we know when our program has learned enough?
 To answer this, we have to define convergence. Convergence is when the loss stops changing (or changes very slowly) when parameters are changed.
 
+
+
+Kaggle:
+
+we can specify a value for sep to put some special string in between our printed arguments:
+print(1, 2, 3, sep=' < ')
+1 < 2 < 3
+But if we don't specify a value, sep is treated as having a default value of ' ' (a single space).
+print(1, 2, 3)
+1 2 3
+
+
+By default, max returns the largest of its arguments. But if we pass in a function using the optional key argument, it returns the argument x that maximizes key(x) (aka the 'argmax').
+
+def mod_5(x):
+    """Return the remainder of x after dividing by 5"""
+    return x % 5
+
+print(
+    'Which number is biggest?',
+    max(100, 51, 14),
+    'Which number is the biggest modulo 5?',
+    max(100, 51, 14, key=mod_5),
+    sep='\n',
+)
+Which number is biggest?
+100
+Which number is the biggest modulo 5?
+14
+
+
+
 """
 
