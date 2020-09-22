@@ -245,7 +245,16 @@ print(list(merged2))
 
 myList = ['a', 'b', 'c']
 myTuple = ('a', 'b', 'c')
+t = (1, 2, 3)
 we have a list (myList) and a tuple (myTuple), a tuple is very similar to a list, except tuples are immutable.
+
+t[0] = 100
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-36-e6cf7836e708> in <module>()
+----> 1 t[0] = 100
+TypeError: 'tuple' object does not support item assignment
+
 
 
 Question
