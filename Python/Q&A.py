@@ -292,6 +292,26 @@ The if/else is placed in front of the for component of the list comprehension.
 divbythree = [  "Yes" if number % 3 == 0 else "No" for number in range(1,20)]
 print(divbythree)
 
+List Comprehension
+Here's an example of filtering with an if condition and applying some transformation to the loop variable:
+
+# str.upper() returns an all-caps version of a string
+loud_short_planets = [planet.upper() + '!' for planet in planets if len(planet) < 6]
+loud_short_planets
+['VENUS!', 'EARTH!', 'MARS!']
+People usually write these on a single line, but you might find the structure clearer when it's split up over 3 lines:
+
+[
+    planet.upper() + '!' 
+    for planet in planets 
+    if len(planet) < 6
+]
+['VENUS!', 'EARTH!', 'MARS!']
+(Continuing the SQL analogy, you could think of these three lines as SELECT, FROM, and WHERE)
+
+
+
+
 How does indexing a string work? or What does `word[0]` in the example mean? - FAQ / Python FAQ - Codecademy Forums
 https://discuss.codecademy.com/t/how-does-indexing-a-string-work-or-what-does-word-0-in-the-example-mean/457119
 
