@@ -329,6 +329,59 @@ from random import randint
 random_numbers = [ randint(number, 2 * number) for number in range(10)]
 print(random_numbers)
 
+Dictionaries
+
+numbers = {'one':1, 'two':2, 'three':3}
+numbers['one']
+1
+
+numbers['eleven'] = 11
+numbers
+{'one': 1, 'two': 2, 'three': 3, 'eleven': 11}
+
+numbers['one'] = 'Pluto'
+numbers
+{'one': 'Pluto', 'two': 2, 'three': 3, 'eleven': 11}
+
+planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+planet_to_initial = {planet: planet[0] for planet in planets}
+planet_to_initial
+{'Mercury': 'M',
+ 'Venus': 'V',
+ 'Earth': 'E',
+ 'Mars': 'M',
+ 'Jupiter': 'J',
+ 'Saturn': 'S',
+ 'Uranus': 'U',
+ 'Neptune': 'N'}
+ 
+ for k in numbers:
+    print("{} = {}".format(k, numbers[k]))
+one = Pluto
+two = 2
+three = 3
+eleven = 11
+
+
+We can access a collection of all the keys or all the values with dict.keys() and dict.values(), respectively.
+
+# Get all the initials, sort them alphabetically, and put them in a space-separated string.
+' '.join(sorted(planet_to_initial.values()))
+'E J M M N S U V'
+The very useful dict.items() method lets us iterate over the keys and values of a dictionary simultaneously. (In Python jargon, an item refers to a key, value pair)
+
+for planet, initial in planet_to_initial.items():
+    print("{} begins with \"{}\"".format(planet.rjust(10), initial))
+   Mercury begins with "M"
+     Venus begins with "V"
+     Earth begins with "E"
+      Mars begins with "M"
+   Jupiter begins with "J"
+    Saturn begins with "S"
+    Uranus begins with "U"
+   Neptune begins with "N"
+   
+   
 
 Question
 When should I create a Pandas dataframe using a dictionary or a list?
@@ -1081,6 +1134,34 @@ Which number is biggest?
 100
 Which number is the biggest modulo 5?
 14
+
+
+"{}, you'll always be the {}th planet to me.".format(planet, position)
+"Pluto, you'll always be the 9th planet to me."
+So much cleaner! We call .format() on a "format string", where the Python values we want to insert are represented with {} placeholders.
+
+
+pluto_mass = 1.303 * 10**22
+earth_mass = 5.9722 * 10**24
+population = 52910390
+#         2 decimal points   3 decimal points, format as percent     separate with commas
+"{} weighs about {:.2} kilograms ({:.3%} of Earth's mass). It is home to {:,} Plutonians.".format(
+    planet, pluto_mass, pluto_mass / earth_mass, population,
+)
+"Pluto weighs about 1.3e+22 kilograms (0.218% of Earth's mass). It is home to 52,910,390 Plutonians."
+# Referring to format() arguments by index, starting from 0
+s = """Pluto's a {0}.
+No, it's a {1}.
+{0}!
+{1}!""".format('planet', 'dwarf planet')
+print(s)
+Pluto's a planet.
+No, it's a dwarf planet.
+planet!
+dwarf planet!
+
+
+
 
 
 
